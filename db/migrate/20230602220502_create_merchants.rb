@@ -4,7 +4,7 @@ class CreateMerchants < ActiveRecord::Migration[7.0]
       t.index :id, unique: true
 
       t.string :name
-      t.integer :status
+      t.integer :status, default: 0
 
       t.timestamps
     end

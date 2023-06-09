@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_220834) do
 
   create_table "merchants", force: :cascade do |t|
     t.string "name"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_merchants_on_id", unique: true
