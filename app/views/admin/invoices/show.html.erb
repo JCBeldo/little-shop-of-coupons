@@ -7,7 +7,7 @@
 <ul>
 <%= form_with model: @invoice, url: admin_invoice_path(@invoice) do |f| %>
   <%= f.label :status, "Status:" %>
-  <%= f.select :status, options_for_select(["cancelled", "in progress", "completed"]) %>
+  <%= f.select :status, ["cancelled", "in progress", "completed"] %>
   <%= f.submit "Update Invoice", style: "font-size:18px;" %>
 <% end %>
 </ul>

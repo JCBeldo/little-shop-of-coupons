@@ -9,7 +9,7 @@
 <h2> <%= @merchant.name %> </h2>
 
 <h3 class="header"><%= @item.name %></h3>
-<%= image_tag @item_small %>
+<%#= image_tag @item_small %>
 <p>Desciption: <%= @item.description %></p>
 <p>Current Price: <%= number_to_currency(@item.unit_price/100.00) %> </p>
 <%= button_to 'Update Item', "/merchants/#{@merchant.id}/items/#{@item.id}/edit", method: :get %>
