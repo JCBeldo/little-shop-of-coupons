@@ -4,4 +4,4 @@ class ItemImage
 #   def initialize(data)
 #     @item_small_url = data[:urls][:small]
 #   end
-# end
+end
