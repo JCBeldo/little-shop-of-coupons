@@ -1,4 +1,4 @@
-# class ItemImage
+class ItemImage
 #   attr_reader :item_small_url
 
 #   def initialize(data)
