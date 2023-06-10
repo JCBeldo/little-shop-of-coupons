@@ -1,49 +1,43 @@
 <%= render partial: "admin/admin_nav" %>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div id="new-merchant", style="float:left"><h5><%= link_to "New Merchant", new_admin_merchant_path %></h5></div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div id="top-merchants", style="float:right; margin:20px;"><h3 style="background-color:lightgrey;"><center>Top Merchants</h3>
-  <ol>
-    <% @merchants.each do |merchant| %>
-        <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %> - <%= number_to_currency(merchant.total_sales) %> in sales </li><br>
-    <% end %>
-  </ol>
-</div>
 
-<div id="enabled-merchants", style="float:left; margin:20px;"><h3>Enabled Merchants</h3>
-  <ul>
-    <% @enabled_merchants.each do |enabled_merchant| %>
-      <div id="<%= enabled_merchant.id %>">
-        <li><%= enabled_merchant.name %><%= form_with model: enabled_merchant, url: admin_merchant_path(enabled_merchant), method: :patch, local: true do |f| %></li><br>
-                                          <%= f.hidden_field :status, value: "disabled" %>
-                                          <%= f.hidden_field :name, value: enabled_merchant.name %>
-                                          <%= f.submit "Disable" %>
-                                        <% end %>
-      </div>
-    <% end %>
-  </ul>
-</div>
-<br>
 
-<div id="disabled-merchants", style="float:left; margin:20px;"><h3>Disabled Merchants</h3>
-  <ul>
-    <% @disabled_merchants.each do |disabled_merchant| %>
-      <div id="<%= disabled_merchant.id %>">
-        <li><%= disabled_merchant.name %><%= form_with model: disabled_merchant, url: admin_merchant_path(disabled_merchant), method: :patch, local: true do |f| %></li><br>
-                                          <%= f.hidden_field :status, value: "enabled" %>
-                                          <%= f.submit "Enable" %>
-                                        <% end %>
-      </div>
-    <% end %>
-  </ul>
-</div>
+<br><br><br><br><div id="new-merchant"><h5 style="margin:20px"><%= link_to "New Merchant", new_admin_merchant_path %></h5></div>
+
+<section style="padding:10px;">
+
+   <div style="float:right; margin:35px;">
+    <div id="top-merchants"><h2 style="background-color:lightgrey;"><center>Top Merchants</h2>
+      <ol>
+        <% @merchants.each do |merchant| %>
+            <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %> - <%= number_to_currency(merchant.total_sales) %> in sales </li><br><br>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+
+  <div id="enabled-merchants"><h2 style="margin:25px;">Enabled Merchants</h2>
+      <% @enabled_merchants.each do |enabled_merchant| %>
+        <div id="<%= enabled_merchant.id %>">
+          <ul><b><%= enabled_merchant.name %><%= form_with model: enabled_merchant, url: admin_merchant_path(enabled_merchant), method: :patch, local: true do |f| %></b><br>
+                <%= f.hidden_field :status, value: "disabled" %>
+                <%= f.hidden_field :name, value: enabled_merchant.name %>
+                <%= f.submit "Disable" %>
+              <% end %></ul>
+        </div>
+      <% end %>
+  </div>
+
+  <br>
+
+  <div id="disabled-merchants"><h2 style="margin:25px;">Disabled Merchants</h2>
+      <% @disabled_merchants.each do |disabled_merchant| %>
+        <ul><div id="<%= disabled_merchant.id %>">
+            <b><%= disabled_merchant.name %><%= form_with model: disabled_merchant, url: admin_merchant_path(disabled_merchant), method: :patch, local: true do |f| %></b><br>
+                <%= f.hidden_field :status, value: "enabled" %>
+                <%= f.submit "Enable" %>
+              <% end %>
+        </div></ul>
+      <% end %>
+  </div>
+
+</section>

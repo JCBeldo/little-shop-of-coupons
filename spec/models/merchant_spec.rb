@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Merchant, type: :model do
   describe "relationships" do
     it { should have_many(:items) }
+    it { should have_many(:coupons) }
     it { should have_many(:invoice_items).through(:items) }
     it { should have_many(:invoices).through(:invoice_items) }
     it { should have_many(:customers).through(:invoices) }
@@ -72,8 +73,10 @@ RSpec.describe Merchant, type: :model do
     end
     
     describe "#top_5_customers" do
-      let!(:merchant) { create(:merchant, name:"Dealer of Death", status: 1 )}
-      let!(:merchant2) { create(:merchant, name:"Dealer of Life", status: 1 )}
+      let!(:merchant) { create(:merchant, name:"Dealer of Death", status: 1) }
+      let!(:merchant2) { create(:merchant, name:"Dealer of Life", status: 1 ) }
+
+      # let!(:coupon_1) { Coupon.create(name: "blabla", status: 1, unique_code: "blabla10", disc_type: 1, disc_amount: 10, merchant_id: merchant.id) }
 
       let!(:customer_1) { create(:customer) }
       let!(:customer_2) { create(:customer) }
@@ -96,7 +99,7 @@ RSpec.describe Merchant, type: :model do
       let!(:trans_5_s) { create_list(:transaction, 5, result: 1, invoice_id: invoice_5.id) }
       let!(:trans_6_f) { create_list(:transaction, 6, result: 0, invoice_id: invoice_6.id) }
 
-      it "displays the not yet shipped items ordered by least recent invoice creation date" do
+      it "displays top 5 customers" do
         expect(merchant.top_5_customers).to eq([customer_5, customer_4, customer_3, customer_2, customer_1])
       end
     end

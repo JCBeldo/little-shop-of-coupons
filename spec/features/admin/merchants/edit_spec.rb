@@ -10,7 +10,7 @@ RSpec.describe "admin merchant update", type: :feature do
 
         visit admin_merchant_path(disabled_merchant)
 
-        expect(page).to have_content("Merchant Name: #{disabled_merchant.name}")
+        expect(page).to have_content("#{disabled_merchant.name}")
         expect(disabled_merchant.name).to eq("Disabled Merchant")
 
         click_link("Update Merchant")
@@ -33,7 +33,7 @@ RSpec.describe "admin merchant update", type: :feature do
 
         visit admin_merchant_path(enabled_merchant)
 
-        expect(page).to have_content("Merchant Name: #{enabled_merchant.name}")
+        expect(page).to have_content("#{enabled_merchant.name}")
         expect(enabled_merchant.name).to eq("Enabled Merchant")
         expect(enabled_merchant.status).to eq("enabled")
 
