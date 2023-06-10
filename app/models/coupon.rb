@@ -3,5 +3,5 @@ class Coupon < ApplicationRecord
   has_many :invoices
 
   enum :status, ["inactive", "active"]
-  enum :disc_type, ["percent_off", "dollar_off"]
+  enum :disc_type, ["percent off", "dollar off"]
 end
