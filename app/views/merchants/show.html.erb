@@ -7,7 +7,7 @@
 <h2> Favorite Customers </h2>
 
 <% @merchant.top_5_customers.each do |customer| %>
-  <p><%= customer.first_name %> <%= customer.last_name %> | <%= customer.transaction_count %> - Successful Transactions </p>
+  <p><%= customer.first_name %> <%= customer.last_name %> | <%= customer.transaction_count %> - Successful Transactions</p>
 <% end %>
 
 <h2> Items Ready to Ship </h2>
