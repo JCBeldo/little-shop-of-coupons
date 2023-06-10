@@ -1,0 +1,14 @@
+<h1 style="background-color:lightgrey; margin:30px; border-top: 3px solid black;"><center>Make a New Coupon</h1>
+<%= form_with url: merchant_coupons_path(@merchant), method: :post, loacl: true do |f| %><center>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :unique_code %>
+  <%= f.text_field :unique_code %>
+  <%= f.label :disc_type, "Discount Type" %>
+  <%= f.select :disc_type, ["percent off", "dollar off"] %>
+  <%= f.label :disc_amount, "Discount Amount" %>
+  <%= f.number_field :disc_amount %>
+
+  <%= f.submit "Make Coupon" %>
+<% end %>
+<br><br>
