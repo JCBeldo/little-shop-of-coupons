@@ -49,9 +49,10 @@ RSpec.describe Invoice, type: :model do
   let!(:trans_6_f) { create_list(:transaction, 6, result: 0, invoice_id: invoice_6.id) }
 
   describe "relationships" do
+    it { should belong_to(:customer) }
+    it { should belong_to(:coupon).optional }
     it { should have_many(:invoice_items) }
     it { should have_many(:items).through(:invoice_items) }
-    it { should belong_to(:customer) }
     it { should have_many(:transactions) }
     it { should have_many(:merchants) }
   end

@@ -1,0 +1,6 @@
+  <h1 style="background-color:lightgrey; margin:30px; border-top: 3px solid black;"><center><%= @merchant.name %>'s Coupons</h1>
+  <% @merchant.coupons.each do |coupon| %>
+    <ul><b>Coupon Name:</b> <%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %>
+    <b>  Amount Off:</b> <%= number_to_currency(coupon.disc_amount) %></ul>
+  <% end %>
+
