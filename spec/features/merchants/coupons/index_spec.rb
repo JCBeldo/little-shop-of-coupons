@@ -33,5 +33,15 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
 
       click_link("#{coupon_1.name}", :href => merchant_coupon_path(merchant_1, coupon_1))
     end
+
+    it 'should display a link to create a new coupon' do
+      visit merchant_coupons_path(merchant_1)
+      
+      expect(page).to have_link("Create Coupon")
+
+      click_link("Create Coupon")
+
+      expect(current_path).to eq(new_merchant_coupon_path(merchant_1))
+    end
   end
 end
