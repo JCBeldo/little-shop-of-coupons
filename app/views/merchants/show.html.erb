@@ -1,20 +1,29 @@
-<h2><%= @merchant.name %><h2>
+<h2><%= @merchant.name %></h2>
 <%#= image_tag @merchant_small %>
-<p><%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %><p>
-<p><%= link_to "My Items", "/merchants/#{@merchant.id}/items" %><p>
+<body>
+<div style="float:right; margin-right:20px;">
+<%= link_to "My Coupons", merchant_coupons_path(@merchant) %>
+<%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
+<%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
+</div>
+<br><br><br>
 
-
-<h2> Favorite Customers </h2>
+<section style="float:left; margin:30px;">
+<h2><center> Favorite Customers </h2>
 
 <% @merchant.top_5_customers.each do |customer| %>
   <p><%= customer.first_name %> <%= customer.last_name %> | <%= customer.transaction_count %> - Successful Transactions</p>
 <% end %>
+</section>
 
-<h2> Items Ready to Ship </h2>
+<div style="float:right; margin:30px;">
+<h2><center> Items Ready to Ship </h2>
 
 <% @merchant.not_shipped_items.each do |invoice| %>
-<% invoice.items.each do |item| %>
-<p> <%= item.name %> - Invoice # <%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}"%>
- - <%= invoice.created_at.strftime("%A, %B %e, %Y") %> </p>
- <% end %>
+  <% invoice.items.each do |item| %>
+  <p><%= item.name %> - Invoice # <%= link_to "#{invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice.id}"%>
+  - <%= invoice.format_time_stamp %> </p>
+    <% end %>
 <% end %>
+</div>
+</body>
