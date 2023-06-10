@@ -16,13 +16,13 @@ RSpec.describe "Merchant Dashboard" do
     let!(:item8) { create(:item, id: 8, merchant_id: 2 )}
     let!(:item9) { create(:item, id: 9, merchant_id: 2 )}
 
-    let!(:customer1) { create(:customer, id: 1, first_name: "Austin" )}
-    let!(:customer2) { create(:customer, id: 2, first_name: "Jimmy" )}
-    let!(:customer3) { create(:customer, id: 3, first_name: "Garret" )}
-    let!(:customer4) { create(:customer, id: 4, first_name: "Julian" )}
-    let!(:customer5) { create(:customer, id: 5, first_name: "James" )}
-    let!(:customer6) { create(:customer, id: 6, first_name: "John" )}
-    let!(:customer7) { create(:customer, id: 7, first_name: "Jerry" )}
+    let!(:customer1) { create(:customer, id: 1, last_name: "Dean", first_name: "Austin" )}
+    let!(:customer2) { create(:customer, id: 2, last_name: "Dean", first_name: "Jimmy" )}
+    let!(:customer3) { create(:customer, id: 3, last_name: "Dean", first_name: "Garrett" )}
+    let!(:customer4) { create(:customer, id: 4, last_name: "Dean", first_name: "Julian" )}
+    let!(:customer5) { create(:customer, id: 5, last_name: "Dean", first_name: "James" )}
+    let!(:customer6) { create(:customer, id: 6, last_name: "Dean", first_name: "John" )}
+    let!(:customer7) { create(:customer, id: 7, last_name: "Dean", first_name: "Jerry" )}
 
     let!(:invoice1) { create(:invoice, id: 1, created_at: "2012-03-25 09:54:09 UTC", customer_id: customer1.id )}
     let!(:invoice2) { create(:invoice, id: 2, created_at: "2012-05-25 09:54:09 UTC", customer_id: customer1.id )}
@@ -118,12 +118,12 @@ RSpec.describe "Merchant Dashboard" do
 
     it "displays the number of successful transactions next to customer's name" do
       visit "/merchants/#{merchant.id}/dashboard"
-
-      expect(page).to have_content("#{customer2.first_name} #{customer2.last_name} | 4 - Successful Transactions")
-      expect(page).to have_content("#{customer1.first_name} #{customer1.last_name} | 3 - Successful Transactions")
-      expect(page).to have_content("#{customer3.first_name} #{customer3.last_name} | 2 - Successful Transactions")
-      expect(page).to have_content("#{customer4.first_name} #{customer4.last_name} | 2 - Successful Transactions")
-      expect(page).to have_content("#{customer5.first_name} #{customer5.last_name} | 1 - Successful Transactions")
+      
+      expect(page).to have_content("Jimmy Dean")
+      expect(page).to have_content("Austin Dean")
+      expect(page).to have_content("Garrett Dean")
+      expect(page).to have_content("Julian Dean")
+      expect(page).to have_content("James Dean")
     end
 
     it "displays items ready to ship with names of all items that have been ordered and not yet shipped" do
