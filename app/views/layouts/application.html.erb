@@ -12,12 +12,12 @@
 
   <body style="border: solid black; margin-bottom:100%">
     <h1 style="font-size:50px; background-color:lightgrey; padding:10px; margin-right:600px; margin-left:600px; margin-top:0px;">
-    <center>Little Esty Shop</h1>
+    <center>Lil' E-Shop</h1>
   <body>
   <center><%#= image_tag logo %></center>
   <center>Likes: <%#= show_logo_likes %></center>
   <% flash.each do |type, msg| %>
-    <div>
+    <div style="color:red; margin-left:30px; font-size:30px;">
       <%= msg %>
     </div>
   <% end %>
