@@ -5,6 +5,7 @@ class Merchants::CouponsController < ApplicationController
   
   def show
     @coupon = Coupon.find(params[:id])
+    @merchant = Merchant.find(params[:merchant_id])
   end
 
   def new
@@ -20,6 +21,14 @@ class Merchants::CouponsController < ApplicationController
       flash[:alert] = "ERROR: Code Not Unique"
       redirect_to new_merchant_coupon_path(merchant)
     end
+  end
+
+  def update
+    merchant = Merchant.find(params[:merchant_id])
+    coupon = Coupon.find(params[:id])
+    # require 'pry'; binding.pry
+    coupon.update!(coupon_params)
+    redirect_to merchant_coupon_path(merchant, coupon)
   end
 
     private
