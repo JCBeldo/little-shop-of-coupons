@@ -5,7 +5,7 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
   let!(:merchant_2) { create(:merchant) }
   
   let!(:coupon_1) { create(:coupon, merchant_id: merchant_1.id, name: "10 doll-hairs off", disc_type: 1, status: 1 ) }
-  let!(:coupon_2) { create(:coupon, merchant_id: merchant_1.id, name: "percent off", disc_type: 0 ) }
+  let!(:coupon_2) { create(:coupon, merchant_id: merchant_1.id, name: "percent off", disc_type: 0, status: 0 ) }
   let!(:coupon_3) { create(:coupon, merchant_id: merchant_1.id ) }
   let!(:coupon_4) { create(:coupon, merchant_id: merchant_2.id ) }
   
@@ -72,6 +72,21 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
       coupon_1.reload
       expect(coupon_1.status).to_not eq("Active")
       expect(page).to_not have_button("Deactivate")
+    end
+    
+    it 'should display a button to activate a coupon' do
+      visit merchant_coupon_path(merchant_1, coupon_2)
+      
+      expect(page).to have_button("Activate")
+      expect(page).to_not have_button("Deactivate")
+      expect(coupon_2.status).to eq("Inactive")
+      
+      click_button("Activate")
+      
+      expect(current_path).to eq(merchant_coupon_path(merchant_1, coupon_2))
+      coupon_2.reload
+      expect(coupon_2.status).to_not eq("Inactive")
+      expect(page).to_not have_button("Activate")
     end
   end
 end
