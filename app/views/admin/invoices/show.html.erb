@@ -16,7 +16,7 @@
 <ul>Total Revenue: <%= number_to_currency(@invoice.total_revenue) %></ul>
 
 <ul><h2>Customer:</h2>
-  <ul><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></ul>
+  <ul><%= @invoice.customer_full_name %></ul>
   <ul>123 Main St.</ul>
   <ul>Denver, CO 80202</ul>
 </ul>
