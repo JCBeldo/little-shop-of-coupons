@@ -8,7 +8,7 @@ class Coupon < ApplicationRecord
   enum :disc_type, ["percent off", "dollar off"]
 
   def times_used
-    Coupon.joins(:transactions)
+    transactions
     .where("transactions.result = 1")
     .count
   end
