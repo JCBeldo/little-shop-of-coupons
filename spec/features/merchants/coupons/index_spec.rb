@@ -49,7 +49,7 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
   describe 'displays active and inactive coupons in two seperate sections' do
     it 'should display two sections for inactive and active coupons' do
       visit merchant_coupons_path(merchant_1)
-      save_and_open_page
+  
       within("#active-coupons") do
         expect(page).to have_content("Active Coupons")
         expect(page).to have_content(coupon_1.name)
