@@ -1,9 +1,10 @@
 <h2 style="background-color:lightgrey; border-top: 3px solid black; padding:10px; margin:20px;"><center>Invoice #<%= @invoice.id %></h2>
-<ul>Status: <%= @invoice.status %></ul>
-<ul>Created on: <%= @invoice.format_time_stamp %></ul>
-<ul>Subtotal: <%= number_to_currency(@invoice.total_revenue) %></ul>
+<ul><b>Status:</b> <%= @invoice.status %></ul>
+<ul><b>Created on:</b> <%= @invoice.format_time_stamp %></ul>
+<ul><b>Subtotal:</b> <%= number_to_currency(@invoice.total_revenue) %></ul>
 <% if !@invoice.coupon.nil? %>
-  <ul>Grand Total: <%= number_to_currency(@invoice.grand_total) %></ul>
+  <ul><b>Grand Total:</b> <%= number_to_currency(@invoice.grand_total) %></ul>
+  <ul><b>Coupon Applied:</b> <%= @invoice.coupon.name %> - <%= @invoice.coupon.unique_code %></ul>
 <% end %>
 <ul><h2>Customer:</h2>
   <ul><%= @invoice.customer_full_name %></ul>
