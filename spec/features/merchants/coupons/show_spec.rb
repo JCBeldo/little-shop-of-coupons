@@ -58,7 +58,7 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
     end
   end
 
-  describe 'Displays a button to ddeactive an active coupon' do
+  describe 'Displays a button to deactive/activate a coupon' do
     it 'should display a button to deactivate a coupon' do
       visit merchant_coupon_path(merchant_1, coupon_1)
       

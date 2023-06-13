@@ -6,14 +6,19 @@
 <section id="status-selector">
 <ul>
 <%= form_with model: @invoice, url: admin_invoice_path(@invoice) do |f| %>
-  <%= f.label :status, "Status:" %>
+  <b><%= f.label :status, "Status:" %></b>
   <%= f.select :status, ["cancelled", "in progress", "completed"] %>
   <%= f.submit "Update Invoice", style: "font-size:18px;" %>
 <% end %>
 </ul>
 </section>
-<ul>Created on: <%= @invoice.format_time_stamp %></ul>
-<ul>Total Revenue: <%= number_to_currency(@invoice.total_revenue) %></ul>
+<ul><b>Created on:</b> <%= @invoice.format_time_stamp %></ul>
+<ul><b>Subtotal:</b> <%= number_to_currency(@invoice.total_revenue) %></ul>
+
+<% if !@invoice.coupon.nil? %>
+  <ul><b>Grand Total:</b> <%= number_to_currency(@invoice.grand_total) %></ul>
+  <ul><b>Coupon Applied:</b> <%= @invoice.coupon.name %> - <%= @invoice.coupon.unique_code %></ul>
+<% end %>
 
 <ul><h2>Customer:</h2>
   <ul><%= @invoice.customer_full_name %></ul>
