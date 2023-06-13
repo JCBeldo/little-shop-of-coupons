@@ -160,5 +160,12 @@ RSpec.describe 'Merchant/invoice show page', type: :feature do
       expect(page).to have_content("Subtotal: $150.00")
       expect(page).to have_content("Grand Total: $120.00")
     end
+
+    it 'should display the coupon name and code of coupon used' do
+      visit merchant_invoice_path(merchant_1, invoice_2)
+      
+      expect(page).to have_content(coupon_3.name)
+      expect(page).to have_content(coupon_3.unique_code)
+    end
   end
 end
