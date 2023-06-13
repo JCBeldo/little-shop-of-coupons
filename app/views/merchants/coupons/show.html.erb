@@ -1,0 +1,36 @@
+<h1 style="background-color:lightgrey; margin:30px; border-top: 3px solid black;"><center><%= @coupon.name %></h2>
+
+<ul>
+<b>Coupon Code:</b> <%= @coupon.unique_code %>
+<br><br>
+<div>
+  <% if @coupon.disc_type == "dollar off" %>
+    <b>Discount Amount:</b> <%= number_to_currency(@coupon.disc_amount) %> Off
+  <% elsif @coupon.disc_type == "percent off" %> 
+    <b>Discount Amount:</b> <%= number_to_percentage(@coupon.disc_amount, precision: 0) %> Off
+  <% end %>
+</div>
+<br />
+
+<div>
+  <div>
+    <b>Active/Inactive:</b> <%= @coupon.status %>
+    <% if @coupon.status == "Active" %>
+      <%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch, local: true do |f| %>
+        <%= f.hidden_field :status, value: "Inactive" %>
+        <%= f.submit "Deactivate" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <% if @coupon.status == "Inactive" %>
+      <%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch, local: true do |f| %>
+        <%= f.hidden_field :status, value: "Active" %>
+        <%= f.submit "Activate" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<br><div><b>Times Used:</b> <%= @coupon.times_used %></div>
+</ul>
