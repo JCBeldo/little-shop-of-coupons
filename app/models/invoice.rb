@@ -24,28 +24,28 @@ class Invoice < ApplicationRecord
     "#{customer.first_name} #{customer.last_name}"
   end
 
-  def grand_total
-    return 0 if (total_revenue * percent_coupon_discount/100) >= total_revenue || dollar_coupon_discount >= total_revenue
+  def grand_total(coupon)
+    return 0 if (total_revenue * percent_coupon_discount(coupon)/100) >= total_revenue || dollar_coupon_discount(coupon) >= total_revenue
       if self.coupon.disc_type == "percent off"
-      total_revenue - (total_revenue * percent_coupon_discount/100)
+      total_revenue - (total_revenue * percent_coupon_discount(coupon)/100)
       else self.coupon.disc_type == "dollar off"
-        total_revenue - dollar_coupon_discount
+        total_revenue - dollar_coupon_discount(coupon)
       end
   end
 
-  def dollar_coupon_discount
+  def dollar_coupon_discount(coupon)
     Coupon.joins(:invoices)
-    .where("coupons.status = 1 AND coupons.disc_type = 1")
+    .where("coupons.status = 1 AND coupons.disc_type = 1 AND coupons.id = #{coupon}")
     .select("coupons.*")
     .pluck(:disc_amount)
     .to_sentence
     .to_i
   end
 
-  def percent_coupon_discount
+  def percent_coupon_discount(coupon)
     Coupon.joins(:invoices)
     .select("coupons.*")
-    .where("coupons.status = 1 AND coupons.disc_type = 0")
+    .where("coupons.status = 1 AND coupons.disc_type = 0 AND coupons.id = #{coupon}")
     .pluck(:disc_amount)
     .to_sentence
     .to_i
