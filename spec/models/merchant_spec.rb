@@ -37,10 +37,10 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe "instance methods" do
-    let!(:merchant) { create(:merchant, name:"Dealer of Death", status: 1 )}
+    let!(:merchant_1) { create(:merchant, name:"Dealer of Death", status: 1 )}
     let!(:merchant2) { create(:merchant, name:"Dealer of Life", status: 1 )}
 
-    let!(:items_m1) { create_list(:item, 5, merchant_id: merchant.id)}
+    let!(:items_m1) { create_list(:item, 5, merchant_id: merchant_1.id)}
     let!(:items_m2) { create_list(:item, 5, merchant_id: merchant2.id)}
 
     let!(:customer1) { create(:customer, first_name: "Austin" )}
@@ -67,7 +67,7 @@ RSpec.describe Merchant, type: :model do
 
     describe "#not_shipped_items" do
       it "displays the not yet shipped items ordered by least recent invoice creation date" do
-        expect(merchant.not_shipped_items).to eq([invoice1, invoice2, invoice3])
+        expect(merchant_1.not_shipped_items).to eq([invoice1, invoice2, invoice3])
         expect(merchant2.not_shipped_items).to eq([invoice5, invoice8])
       end
     end
@@ -75,8 +75,6 @@ RSpec.describe Merchant, type: :model do
     describe "#top_5_customers" do
       let!(:merchant) { create(:merchant, name:"Dealer of Death", status: 1) }
       let!(:merchant2) { create(:merchant, name:"Dealer of Life", status: 1 ) }
-
-      # let!(:coupon_1) { Coupon.create(name: "blabla", status: 1, unique_code: "blabla10", disc_type: 1, disc_amount: 10, merchant_id: merchant.id) }
 
       let!(:customer_1) { create(:customer) }
       let!(:customer_2) { create(:customer) }
@@ -228,8 +226,25 @@ RSpec.describe Merchant, type: :model do
 
       let!(:transaction17) { create(:transaction, id: 17, result: 0, invoice_id: invoice17.id )}
 
-      it "returns tope 5 items ranks by total revenue and must has atleast one successfull transaction" do
+      it "returns top 5 items ranks by total revenue and must has atleast one successfull transaction" do
         expect(merchant5.top_five_items).to eq([item3, item1, item5, item2, item4])
+      end
+    end
+    describe "#max_coupons" do
+      let!(:coupon_1) { create(:coupon, merchant_id: merchant_1.id, status: 1 ) }
+      let!(:coupon_2) { create(:coupon, merchant_id: merchant_1.id, status: 1 ) }
+      let!(:coupon_3) { create(:coupon, merchant_id: merchant_1.id, status: 1 ) }
+      let!(:coupon_4) { create(:coupon, merchant_id: merchant_1.id, status: 1 ) }
+      # let!(:coupon_5) { create(:coupon, merchant_id: merchant_1.id, status: 1 ) }
+
+      it 'returns true if there are less than 5 active coupons' do
+        expect(merchant_1.max_coupons).to eq(true)
+      end
+      
+      it 'returns false if there are more than 5 active coupons' do
+        coupon_6 = create(:coupon, merchant_id: merchant_1.id, status: 1)
+        
+        expect(merchant_1.max_coupons).to eq(false)
       end
     end
   end

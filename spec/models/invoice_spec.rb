@@ -4,7 +4,7 @@ RSpec.describe Invoice, type: :model do
   let!(:merchant_1) { create(:merchant) }
 
   let!(:coupon_1) { create(:coupon, merchant_id: merchant_1.id, name: "10 doll-hairs off", disc_type: 1, status: 1, disc_amount: 10.00 ) }
-  let!(:coupon_2) { create(:coupon, merchant_id: merchant_1.id, name: "percent off", disc_type: 0, status: 0 ) }
+  let!(:coupon_2) { create(:coupon, merchant_id: merchant_1.id, name: "3 dollars off", disc_type: 1, status: 1, disc_amount: 3.01) }
   let!(:coupon_3) { create(:coupon, merchant_id: merchant_1.id, name: "20 percent off", disc_type: 0, status: 1, disc_amount: 20.00) }
 
   let!(:items_m1) { create_list(:item, 5, merchant_id: merchant_1.id) }
@@ -30,7 +30,7 @@ RSpec.describe Invoice, type: :model do
   let!(:invoice_5) { create(:invoice, customer_id: customer_5.id) }
   let!(:invoice_6) { create(:invoice, customer_id: customer_6.id) }
   let!(:invoice_7) { create(:invoice, customer_id: customer_7.id, created_at: static_time_1) }
-  let!(:invoice_8) { create(:invoice, customer_id: customer_7.id) }
+  let!(:invoice_8) { create(:invoice, customer_id: customer_7.id, coupon_id: coupon_2.id) }
   let!(:invoice_9) { create(:invoice, customer_id: customer_7.id, created_at: static_time_2) }
   let!(:invoice_10) { create(:invoice, customer_id: customer_7.id, created_at: static_time_3) }
   let!(:invoice_11) { create(:invoice, customer_id: customer_8.id, coupon_id: coupon_3.id) }
@@ -40,7 +40,7 @@ RSpec.describe Invoice, type: :model do
   let!(:invoice_item_3) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[2].id, status: 0, quantity: 10, unit_price: 5000 ) }
   let!(:invoice_item_4) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[3].id, status: 0, quantity: 10, unit_price: 5000 ) }
   let!(:invoice_item_5) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[4].id, status: 2, quantity: 10, unit_price: 5000 ) }
-  let!(:invoice_item_6) { create(:invoice_item, invoice_id: invoice_8.id, item_id: items_m1[4].id, status: 2 ) }
+  let!(:invoice_item_6) { create(:invoice_item, invoice_id: invoice_8.id, item_id: items_m1[4].id, status: 2, quantity: 1, unit_price: 300 ) }
   let!(:invoice_item_7) { create(:invoice_item, invoice_id: invoice_9.id, item_id: items_m1[3].id, status: 0, quantity: 10, unit_price: 5000 ) }
   let!(:invoice_item_8) { create(:invoice_item, invoice_id: invoice_7.id, item_id: items_m1[4].id, status: 0, quantity: 10, unit_price: 5000 ) }
   let!(:invoice_item_9) { create(:invoice_item, invoice_id: invoice_9.id, item_id: items_m1[4].id, status: 0, quantity: 1, unit_price: 49999 ) }
@@ -96,6 +96,7 @@ RSpec.describe Invoice, type: :model do
       it 'returns the grand total after a coupon was used' do
         expect(invoice_1.grand_total).to eq(50.00) #dollar off
         expect(invoice_11.grand_total).to eq(48.00) #percent off - better bargain!
+        expect(invoice_8.grand_total).to eq(0.00)
       end
     end
 

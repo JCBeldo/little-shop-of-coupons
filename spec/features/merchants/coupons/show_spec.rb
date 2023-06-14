@@ -17,22 +17,6 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
   let!(:trans_2_f) { create(:transaction, result: 0, invoice_id: invoice_1.id) }
   
   describe "Displays a coupons' attributes" do
-    # before :each do
-    # @merchant_1 = create(:merchant)
-    # @merchant_2 = create(:merchant)
-  
-    # @coupon_1 = create(:coupon, merchant_id: @merchant_1.id, name: "10 doll-hairs off", disc_type: 1, status: 1 )
-    # @coupon_2 = create(:coupon, merchant_id: @merchant_1.id, name: "percent off", disc_type: 0 )
-    # @coupon_3 = create(:coupon, merchant_id: @merchant_1.id )
-    # @coupon_4 = create(:coupon, merchant_id: @merchant_2.id )
-    
-    # @customer_1 = create(:customer)
-    # @invoice_1 = create(:invoice, customer_id: @customer_1.id, status: 2, coupon_id: @coupon_1.id)
-    
-    # @trans_1_s = create(:transaction, result: 1, invoice_id: @invoice_1.id)
-    # @trans_2_s = create(:transaction, result: 1, invoice_id: @invoice_1.id)
-    # @trans_2_f = create(:transaction, result: 0, invoice_id: @invoice_1.id)
-    # end
 
     it 'should display a coupons name, unique code, status, and discount amount' do
       visit merchant_coupon_path(merchant_1, coupon_1)
