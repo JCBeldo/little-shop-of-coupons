@@ -11,8 +11,12 @@ class UnsplashService
   #   get_url("https://api.unsplash.com/photos/random?client_id=5LdyjwQLiAuLrMg_CQSXRjgo3hk9DvIE40lLpY4_nvA")
   # end
 
-  # def get_url(url)
-  #   response = HTTParty.get(url)
-  #   JSON.parse(response.body, symbolize_names: true)
-  # end
+  def upcoming_holidays_url
+    get_url("https://date.nager.at/api/v3/NextPublicHolidays/EC")
+  end
+
+  def get_url(url)
+    response = HTTParty.get(url)
+    JSON.parse(response.body, symbolize_names: true)
+  end
 end

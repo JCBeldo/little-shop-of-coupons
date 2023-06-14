@@ -1,0 +1,39 @@
+<h1 style="background-color:lightgrey; margin:30px; border-top: 3px solid black;"><center><%= @merchant.name %>'s Coupons</h1>
+<section><b style="font-size:18px;">
+  <h1 style="background-color:lightgrey; margin-left:600px; margin-right:600px; border-top: 2px solid black;"><center>Upcoming Ecuador Holidays</h1>
+    <center><% @holidays.each do|holiday| %>
+    <%= holiday.names_3 %> - <%= holiday.dates_3 %><br /><br>
+    <% end %>
+</b></section>
+<%= link_to "Create Coupon", new_merchant_coupon_path, style: "float:left; font-size:25px; margin-left:65px; background-color:pink; color:red;" %>
+<br />
+
+<section style="margin-left:30px;">
+  <div id="active-coupons"><h2 style="background-color:lightgrey; margin:35px; border-top: 2px solid black"><center>Active Coupons</h2>
+    <% @merchant.coupons.each do |coupon| %>
+      <% if coupon.status == "Active" %>
+        <ul><b>Coupon Name:</b> <%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></ul>
+        <% if coupon.disc_type == "dollar off" %>
+          <ul><b>Discount Amount:</b> <%= number_to_currency(coupon.disc_amount) %> Off</ul>
+        <% elsif coupon.disc_type == "percent off" %> 
+          <ul><b>Discount Amount:</b> <%= number_to_percentage(coupon.disc_amount, precision: 0) %> Off</ul>
+        <% end %>
+        <br />
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div id="inactive-coupons"><h2 style="background-color:lightgrey; margin:35px; border-top: 2px solid black"><center>Inactive Coupons</h2>
+    <% @merchant.coupons.each do |coupon| %>
+      <% if coupon.status == "Inactive" %>
+        <ul><b>Coupon Name:</b> <%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></ul>
+        <% if coupon.disc_type == "dollar off" %>
+          <ul><b>Discount Amount:</b> <%= number_to_currency(coupon.disc_amount) %> Off</ul>
+        <% elsif coupon.disc_type == "percent off" %> 
+          <ul><b>Discount Amount:</b> <%= number_to_percentage(coupon.disc_amount, precision: 0) %> Off</ul>
+        <% end %>
+        <br/>
+      <% end %>
+    <% end %>
+  </div>
+</section>

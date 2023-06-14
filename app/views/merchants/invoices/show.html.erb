@@ -1,9 +1,17 @@
-<h2>Invoice #<%= @invoice.id %></h2>
-<p>Status: <%= @invoice.status %></p>
-<p>Created on: <%= @invoice.format_time_stamp %></p>
-<p>Total Revenue: $<%= @invoice.total_revenue %></p>
-<h2>Customer:</h2>
-<p><%= @invoice.customer_full_name%></p>
+<h2 style="background-color:lightgrey; border-top: 3px solid black; padding:10px; margin:20px;"><center>Invoice #<%= @invoice.id %></h2>
+<ul><b>Status:</b> <%= @invoice.status %></ul>
+<ul><b>Created on:</b> <%= @invoice.format_time_stamp %></ul>
+<ul><b>Subtotal:</b> <%= number_to_currency(@invoice.total_revenue) %></ul>
+<% if !@invoice.coupon.nil? %>
+  <ul><b>Grand Total:</b> <%= number_to_currency(@invoice.grand_total) %></ul>
+  <ul><b>Coupon Applied:</b> <%= @invoice.coupon.name %> - <%= @invoice.coupon.unique_code %></ul>
+<% end %>
+<ul><h2>Customer:</h2>
+  <ul><%= @invoice.customer_full_name %></ul>
+  <ul>123 Main St.</ul>
+  <ul>Denver, CO 80202</ul>
+</ul>
+
 <style>
 table, th, td {
   border: 1px solid black;
@@ -12,7 +20,7 @@ table, th, td {
   font-size: 20px;
 }
 </style>
-<h2>Items on this Invoice:</h2>
+<br><ul><h2>Items on this Invoice:</h2></ul>
 <div id="invoice_items"> 
 <table style="width:99%">
   <tr>
@@ -23,10 +31,10 @@ table, th, td {
   </tr>
   <% @invoice.invoice_items.each do |invoice_item| %>
     <tr id="items-<%= invoice_item.item.id %>">
-        <td><%= invoice_item.item.name %></td>
-        <td><%= invoice_item.quantity %></td>
-        <td>$<%= invoice_item.format_unit_price %></td>
-        <td>
+        <td><center><%= invoice_item.item.name %></td>
+        <td><center><%= invoice_item.quantity %></td>
+        <td><center><%= number_to_currency(invoice_item.format_unit_price) %></td>
+        <td><center>
         <%= form_with model: [@merchant, invoice_item] do |form|%>
         <%= form.label :status, hidden: true %>
         <%= form.select :status, options_for_select([["pending", :pending], [:packaged, "packaged"], [:shipped, "shipped"]], invoice_item.status)%>
@@ -37,4 +45,3 @@ table, th, td {
   <% end %>
 </table>
 </div>
-e 

@@ -1,19 +1,26 @@
-<%= render partial: "admin_nav" %>
-<br>
-<br>
-<div id="top-5-customers", style="float:right; margin:20px;">
-<h3 style="background-color:lightgrey; border-top: 3px solid black; padding:10px;"><center>Top Customers</h3>
-  <ol>
-    <% @customers.each do |customer| %>
-        <li><%= customer.first_name %> <%= customer.last_name %> - <%= customer.successful_transaction_count %> purchases </li><br>
-    <% end %>
-  </ol>
-</div>
-<div id="incomplete-invoices", style="float:left; margin:20px;">
-<h3 style="background-color:lightgrey; border-top: 3px solid black; padding:10px;"><center>Incomplete Invoices</h3>
-  <ul>
-    <% @invoices.each do |invoice| %>
-        <li>Invoice #<%= link_to "#{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.format_time_stamp %> </li><br>
-    <% end %>
-  </ul>
-</div>
+<body>
+  <%= render partial: "admin_nav" %>
+
+  <br><br><br>
+  <div id="top-5-customers">
+    <div style="float:left; margin:20px;">
+      <h3 style="background-color:lightgrey; border-top: 3px solid black; padding:10px;"><center>Top Customers</h3>
+      <ol>
+        <% @customers.each do |customer| %>
+            <li><%= customer.first_name %> <%= customer.last_name %> - <%= customer.successful_transaction_count %> purchases </li><br>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+
+  <div id="incomplete-invoices">
+    <div style="float:right; margin:20px;">
+      <h3 style="background-color:lightgrey; border-top: 3px solid black; padding:10px;"><center>Incomplete Invoices</h3>
+      <ul>
+        <% @invoices.each do |invoice| %>
+            <li>Invoice #<%= link_to "#{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.format_time_stamp %> </li><br>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</body>

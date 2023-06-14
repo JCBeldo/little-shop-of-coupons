@@ -15,6 +15,6 @@ class Item < ApplicationRecord
     .order(total_revenue: :desc)
     .limit(1)
     .first
-    invoice.created_at.strftime("%A, %B %e, %Y")
+    invoice.format_time_stamp
   end
 end
