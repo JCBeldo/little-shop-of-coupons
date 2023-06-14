@@ -69,4 +69,22 @@ RSpec.describe "Merchant/coupons Index Page", type: :feature do
       end
     end
   end
+
+  #API call
+  
+  describe "Displays a header with next three upcoming holdidays" do
+    it "should display a header called 'Upcoming Holidays' that shows next 3 upcoming holidays" do
+      visit merchant_coupons_path(merchant_1)
+      
+      expect(page).to have_content("Upcoming Ecuador Holidays")
+      expect(page).to have_content("Declaration of Independence of Quito")
+      expect(page).to have_content("Independence of Guayaquil")
+      expect(page).to have_content("All Souls' Day")
+      expect(page).to_not have_content("Independence of Cuenca")
+      expect(page).to have_content("2023-08-10")
+      expect(page).to have_content("2023-10-09")
+      expect(page).to have_content("2023-11-02")
+      expect(page).to_not have_content("2023-11-03")
+    end
+  end
 end

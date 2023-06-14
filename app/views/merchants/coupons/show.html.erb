@@ -24,7 +24,7 @@
   </div>
 
   <div>
-    <% if @coupon.status == "Inactive" %>
+    <% if @coupon.status == "Inactive" && @merchant.max_coupons == true %>
       <%= form_with url: merchant_coupon_path(@merchant, @coupon), method: :patch, local: true do |f| %>
         <%= f.hidden_field :status, value: "Active" %>
         <%= f.submit "Activate" %>

@@ -25,11 +25,12 @@ class Invoice < ApplicationRecord
   end
 
   def grand_total
-    if self.coupon.disc_type == "percent off"
-     total_revenue - (total_revenue * percent_coupon_discount/100)
-    else self.coupon.disc_type == "dollar off"
-      total_revenue - dollar_coupon_discount
-    end
+    return 0 if (total_revenue * percent_coupon_discount/100) >= total_revenue || dollar_coupon_discount >= total_revenue
+      if self.coupon.disc_type == "percent off"
+      total_revenue - (total_revenue * percent_coupon_discount/100)
+      else self.coupon.disc_type == "dollar off"
+        total_revenue - dollar_coupon_discount
+      end
   end
 
   def dollar_coupon_discount

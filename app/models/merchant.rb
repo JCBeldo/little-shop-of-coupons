@@ -60,4 +60,9 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+  def max_coupons
+    coupons
+    .where("coupons.status = 1")
+    .count < 5
+  end
 end
