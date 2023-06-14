@@ -1,4 +1,10 @@
 <h1 style="background-color:lightgrey; margin:30px; border-top: 3px solid black;"><center><%= @merchant.name %>'s Coupons</h1>
+<section><b style="font-size:18px;">
+  <h1 style="background-color:lightgrey; margin-left:600px; margin-right:600px; border-top: 2px solid black;"><center>Upcoming Ecuador Holidays</h1>
+    <center><% @holidays.each do|holiday| %>
+    <%= holiday.names_3 %> - <%= holiday.dates_3 %><br /><br>
+    <% end %>
+</b></section>
 <%= link_to "Create Coupon", new_merchant_coupon_path, style: "float:left; font-size:25px; margin-left:65px; background-color:pink; color:red;" %>
 <br />
 
