@@ -31,25 +31,6 @@ Potential Refactor Opportunities
 - Update a welcome page and provide links to admin and merchant show pages.
 - Style the whole app with CSS.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Little Esty Shop
 
 ## Background and Description
