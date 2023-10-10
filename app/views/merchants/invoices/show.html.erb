@@ -3,7 +3,7 @@
 <ul><b>Created on:</b> <%= @invoice.format_time_stamp %></ul>
 <ul><b>Subtotal:</b> <%= number_to_currency(@invoice.total_revenue) %></ul>
 <% if !@invoice.coupon.nil? %>
-  <ul><b>Grand Total:</b> <%= number_to_currency(@invoice.grand_total) %></ul>
+  <ul><b>Grand Total:</b> <%= number_to_currency(@invoice.grand_total(@invoice.coupon.id)) %></ul>
   <ul><b>Coupon Applied:</b> <%= @invoice.coupon.name %> - <%= @invoice.coupon.unique_code %></ul>
 <% end %>
 <ul><h2>Customer:</h2>
